@@ -1,0 +1,293 @@
+1. Setting up service
+2. Setting up BT device
+3. Configuring Device name test_keyboard_nio
+4. Configuring Bluez Profile
+5. Reading service record
+6. Profile registered 
+start
+done
+[0;33m7. Waiting for connections[0m
+[0;32mGot a connection on the control channel from 6C:7E:67:DB:0C:8A [0m
+[0;32mGot a connection on the interrupt channel from 6C:7E:67:DB:0C:8A [0m
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(12), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(22), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(44), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(12), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(23), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(44), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(28), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(8), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(22), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(56), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(44), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(24), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(19), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(44), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(12), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(23), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(44), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(6), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(15), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(18), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(22), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(8), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(21), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(55), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(44), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(12), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(22), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(44), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(12), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(23), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(44), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(12), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(23), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(56), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(44), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(15), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(12), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(14), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(8), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(44), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(12), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(23), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(44), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(6), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(15), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(18), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(22), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(8), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(21), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(55), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(44), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(12), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(22), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(44), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(12), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(23), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(44), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(6), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(15), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(18), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(22), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(8), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(21), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(56), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(44), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(5), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(21), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(12), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(17), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(10), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg:  dbus.Array([dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0), dbus.Byte(0)], signature=dbus.Signature('y'))
+Get send_keys request through dbus
+key msg: 
