@@ -12,7 +12,7 @@ class BtkStringClient():
     KEY_DELAY = 0.01
     output_stream = "tts_final_decoded_sentence"
     trial_info_stream = 'trial_info'
-    r = redis.Redis('192.168.150.2', socket_connect_timeout=10)
+    r = redis.Redis('192.168.150.2', socket_timeout=5)
 
     def __init__(self):
         # the structure for a bt keyboard input report (size is 10 bytes)
@@ -137,7 +137,7 @@ class BtkStringClient():
                         # -1 is NOT SPECIFIED
 
                         self.send_string(output)
-            except redis.exceptions.ConnectionError as r_con_error:
+            except:
                 last_entry_seen = "0"
                 trial_info_last_entry_seen = "0"
 
