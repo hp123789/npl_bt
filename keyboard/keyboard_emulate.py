@@ -138,13 +138,16 @@ class BtkStringClient():
 
                         self.send_string(output)
             except:
-                try:
-                    self.r.ping()
-                    t = self.r.time()
-                    last_entry_seen = int(t[0]*1000 + t[1]/1000)
-                    trial_info_last_entry_seen = int(t[0]*1000 + t[1]/1000)
-                except:
-                    pass
+                isConnected = False
+                while not isConnected:
+                    try:
+                        self.r.ping()
+                        t = self.r.time()
+                        last_entry_seen = int(t[0]*1000 + t[1]/1000)
+                        trial_info_last_entry_seen = int(t[0]*1000 + t[1]/1000)
+                        isConnected = True
+                    except:
+                        pass
 
 
 if __name__ == "__main__":
