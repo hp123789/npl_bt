@@ -12,7 +12,7 @@ class BtkStringClient():
     KEY_DELAY = 0.01
     output_stream = "tts_final_decoded_sentence"
     trial_info_stream = 'trial_info'
-    r = redis.Redis('192.168.150.2')
+    r = redis.Redis('192.168.150.2', socket_connect_timeout=10)
 
     def __init__(self):
         # the structure for a bt keyboard input report (size is 10 bytes)
@@ -108,34 +108,38 @@ class BtkStringClient():
         trial_info_last_entry_seen = "0"
         while True:
 
-            sentence = self.r.xread(
-                {self.output_stream: last_entry_seen}, block=0, count=1
-            )
-            if len(sentence) > 0:
-                last_entry_seen = sentence[0][1][0][0]
-                output = sentence[0][1][0][1][b'final_decoded_sentence'].decode() + " "
-
-                trial_info = self.r.xread(
-                    {self.trial_info_stream: trial_info_last_entry_seen},
-                    block=0,
-                    count=1,
+            try:
+                sentence = self.r.xread(
+                    {self.output_stream: last_entry_seen}, block=0, count=1
                 )
+                if len(sentence) > 0:
+                    last_entry_seen = sentence[0][1][0][0]
+                    output = sentence[0][1][0][1][b'final_decoded_sentence'].decode() + " "
 
-                for entry_id, entry in trial_info[0][1]:
-                    trial_info_last_entry_seen = entry_id
-                    if b'decoded_correctly' in entry:
-                        decoded_correctly = int(entry[b'decoded_correctly'].decode())
-                    else:
-                        decoded_correctly = int(-1)
+                    trial_info = self.r.xread(
+                        {self.trial_info_stream: trial_info_last_entry_seen},
+                        block=0,
+                        count=1,
+                    )
 
-                # only type correct or mostly correct sentences
-                if decoded_correctly in [-1,1,2]:
-                    # 0 is INCORRECT
-                    # 1 is CORRECT
-                    # 2 is MOSTLY CORRECT
-                    # -1 is NOT SPECIFIED
+                    for entry_id, entry in trial_info[0][1]:
+                        trial_info_last_entry_seen = entry_id
+                        if b'decoded_correctly' in entry:
+                            decoded_correctly = int(entry[b'decoded_correctly'].decode())
+                        else:
+                            decoded_correctly = int(-1)
 
-                    self.send_string(output)
+                    # only type correct or mostly correct sentences
+                    if decoded_correctly in [-1,1,2]:
+                        # 0 is INCORRECT
+                        # 1 is CORRECT
+                        # 2 is MOSTLY CORRECT
+                        # -1 is NOT SPECIFIED
+
+                        self.send_string(output)
+            except redis.exceptions.ConnectionError as r_con_error:
+                last_entry_seen = "0"
+                trial_info_last_entry_seen = "0"
 
 
 if __name__ == "__main__":

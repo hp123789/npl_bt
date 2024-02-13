@@ -82,35 +82,6 @@ class MouseClient():
 				x_final = int(x_bgcoordinates * self.screen_height)
 				y_final = int(y_bgcoordinates * self.screen_height)
 
-				# if (x_final > 128): x_final = 128
-				# if (x_final < -128): x_final = -128
-				# if (y_final > 128): y_final = 128
-				# if (y_final < -128): x_final = -128
-
-				if x_final > 0 and y_final == 0:
-					print(directions["up"])
-
-				if x_final < 0 and y_final == 0:
-					print(directions["down"])
-
-				if x_final == 0 and y_final < 0:
-					print(directions["left"])
-
-				if x_final == 0 and y_final > 0:
-					print(directions["right"])
-
-				if x_final > 0 and y_final > 0:
-					print(directions["up_right"])
-
-				if x_final > 0 and y_final < 0:
-					print(directions["up_left"])
-
-				if x_final < 0 and y_final > 0:
-					print(directions["down_right"])
-
-				if x_final < 0 and y_final < 0:
-					print(directions["down_left"])
-
 				if (x_final < 0):
 					x_final = 256 + x_final
 
