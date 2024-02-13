@@ -7,7 +7,7 @@ sudo /etc/init.d/bluetooth start
 # Update  mac address
 ./updateMac.sh
 #Update Name
-./updateName.sh test_keyboard_nio
+./updateName.sh i-am-keyboard-and-mouse
 #Get current Path
 export C_PATH=$(pwd)
 
