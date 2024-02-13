@@ -137,6 +137,9 @@ class BtkStringClient():
                         # -1 is NOT SPECIFIED
 
                         self.send_string(output)
+                        message = {"message": "WRITING SENTENCE: " + output}
+                        self.r.xadd("console_logging", message)
+                        
             except:
                 isConnected = False
                 while not isConnected:
