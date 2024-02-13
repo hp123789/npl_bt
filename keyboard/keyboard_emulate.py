@@ -138,8 +138,7 @@ class BtkStringClient():
 
                         self.send_string(output)
             except:
-                last_entry_seen = "0"
-                trial_info_last_entry_seen = "0"
+                pass
 
 
 if __name__ == "__main__":
