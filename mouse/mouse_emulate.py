@@ -58,7 +58,8 @@ class MouseClient():
 			
 			read_result = self.r.xread(
                     {
-                        self.input_stream: "$"
+                        self.input_stream: "$",
+						self.discrete_input_stream: last_discrete_input_entry_seen,
                     }, count=1, block=0
                 )
 
@@ -93,14 +94,28 @@ class MouseClient():
 
 				#print(x_final,y_final)
 
-				self.state[0] = 0
-
 				self.state[1] = int(x_final)
 				self.state[2] = int(y_final)
 
 				self.send_current()
 
-				time.sleep(0.01)
+			for (
+				discrete_input_entry_id,
+				discrete_input_entry_dict,
+			) in read_result_dict.get(self.discrete_input_stream, []):
+				# Save that we've now seen this entry.
+				last_discrete_input_entry_seen = discrete_input_entry_id
+
+				# Discrete action command received.
+				output_class = discrete_input_entry_dict[b"output_class"].decode()
+
+				# Ignore it if it is the null action.
+				if output_class != "no_action":
+					self.state[0] = 1
+				
+				self.state[0] = 0
+
+			time.sleep(0.01)
 
 
 if __name__ == "__main__":
