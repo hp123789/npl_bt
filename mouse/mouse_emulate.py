@@ -25,14 +25,6 @@ class MouseClient():
 			error(err)
 	
 	def run(self):
-		directions = {"left": "←",
-				"right": "→",
-				"up": "↑",
-				"down": "↓",
-				"down_left": "↙",
-				"down_right": "↘",
-				"up_left": "↖",
-				"up_right": "↗"}
 		
 		self.input_stream = "cursor_2d_commands"
 		self.discrete_input_stream = "decoded_gestures"
