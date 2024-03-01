@@ -104,8 +104,8 @@ class BtkStringClient():
             time.sleep(BtkStringClient.KEY_DELAY)
     
     def run(self):
-        last_entry_seen = "0"
-        trial_info_last_entry_seen = "0"
+        last_entry_seen = "$"
+        trial_info_last_entry_seen = "$"
         while True:
 
             try:
@@ -137,6 +137,9 @@ class BtkStringClient():
                         # -1 is NOT SPECIFIED
 
                         self.send_string(output)
+                        message = {"message": "WRITING SENTENCE: " + output}
+                        self.r.xadd("console_logging", message)
+                        
             except:
                 isConnected = False
                 while not isConnected:
