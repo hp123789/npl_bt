@@ -51,13 +51,10 @@ class MouseClient():
 
 			node_params = node_dict["parameters"]
 
-			if node_params.get('run_mouse') is None:
-				return None
-			else:
-				run_mouse = np.array(node_params['run_mouse'])
-				run_click = np.array(node_params['run_click'])
-				screen_height = np.array(node_params['screen_height'])
-				return run_mouse, run_click, screen_height
+			if node_params.get('run_mouse') is not None:
+				self.run_mouse = np.array(node_params['run_mouse'])
+				self.run_click = np.array(node_params['run_click'])
+				self.screen_height = np.array(node_params['screen_height'])
 	
 	def run(self):
 		
@@ -86,12 +83,7 @@ class MouseClient():
 	
 		while True:
 
-			if self.load_supergraph():
-				self.run_mouse, self.run_click, self.screen_height = self.load_supergraph()
-			else:
-				self.run_mouse = True
-				self.run_click = True
-				self.screen_height = 1964
+			self.load_supergraph()
 
 			if self.run_mouse:
 			
