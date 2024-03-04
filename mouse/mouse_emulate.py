@@ -26,7 +26,7 @@ class MouseClient():
 			error(err)
 
 	def load_supergraph(self):
-		supergraph_entries = self.redis_conn.xrevrange("supergraph_stream", count=1)
+		supergraph_entries = self.r.xrevrange("supergraph_stream", count=1)
 
 		# Parse the result from redis.
 		supergraph_id, supergraph_entry = supergraph_entries[0]
