@@ -108,6 +108,7 @@ class MouseClient():
 					self.state[2] = 0
 					self.send_current()
 					self.state[0] = 0
+					self.send_current()
 
 			time.sleep(0.01)
 
