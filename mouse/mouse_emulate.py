@@ -29,36 +29,36 @@ class MouseClient():
 		except OSError as err:
 			error(err)
 
-	def load_supergraph(self):
-		supergraph_entries = self.r.xrevrange("supergraph_stream", count=1)
+	# def load_supergraph(self):
+	# 	supergraph_entries = self.r.xrevrange("supergraph_stream", count=1)
 
-		# Parse the result from redis.
-		supergraph_id, supergraph_entry = supergraph_entries[0]
-		supergraph_bytes = supergraph_entry[b"data"]
-		supergraph_str = supergraph_bytes.decode()
-		supergraph_dict = json.loads(supergraph_str)
+	# 	# Parse the result from redis.
+	# 	supergraph_id, supergraph_entry = supergraph_entries[0]
+	# 	supergraph_bytes = supergraph_entry[b"data"]
+	# 	supergraph_str = supergraph_bytes.decode()
+	# 	supergraph_dict = json.loads(supergraph_str)
 
-		# If this is a new supergraph, update this class's version.
-		if supergraph_id != self.supergraph_id:
-			self.supergraph_id = supergraph_id
-			self.supergraph_dict = supergraph_dict
-			# Also grab the parameters for this specific node.
-			matching_node_dicts = [
-				n
-				for n in supergraph_dict["nodes"].values()
-				if n["nickname"] == "brainToText_personalUse"
-			]
-			if not matching_node_dicts:
-				message = {"message": f"Bluetooth: No parameters entry in supergraph for node '{self.nickname}'"}
-				self.r.xadd("console_logging", message)
-			node_dict = matching_node_dicts[0]
+	# 	# If this is a new supergraph, update this class's version.
+	# 	if supergraph_id != self.supergraph_id:
+	# 		self.supergraph_id = supergraph_id
+	# 		self.supergraph_dict = supergraph_dict
+	# 		# Also grab the parameters for this specific node.
+	# 		matching_node_dicts = [
+	# 			n
+	# 			for n in supergraph_dict["nodes"].values()
+	# 			if n["nickname"] == "brainToText_personalUse"
+	# 		]
+	# 		if not matching_node_dicts:
+	# 			message = {"message": f"Bluetooth: No parameters entry in supergraph for node '{self.nickname}'"}
+	# 			self.r.xadd("console_logging", message)
+	# 		node_dict = matching_node_dicts[0]
 
-			node_params = node_dict["parameters"]
+	# 		node_params = node_dict["parameters"]
 
-			if node_params.get('run_mouse') is not None:
-				self.run_mouse = np.array(node_params['run_mouse'])
-				self.run_click = np.array(node_params['run_click'])
-				self.screen_height = np.array(node_params['screen_height'])
+	# 		if node_params.get('run_mouse') is not None:
+	# 			self.run_mouse = np.array(node_params['run_mouse'])
+	# 			self.run_click = np.array(node_params['run_click'])
+	# 			self.screen_height = np.array(node_params['screen_height'])
 	
 	def run(self):
 		
@@ -82,10 +82,10 @@ class MouseClient():
 	
 		while True:
 
-			try:
-				self.load_supergraph()
-			except Exception as e:
-				self.r.xadd("console_logging", "mouse supergraph error: " + e)
+			# try:
+			# 	self.load_supergraph()
+			# except Exception as e:
+			# 	self.r.xadd("console_logging", "mouse supergraph error: " + e)
 
 			if self.run_mouse:
 			
