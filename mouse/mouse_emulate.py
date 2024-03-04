@@ -83,7 +83,10 @@ class MouseClient():
 	
 		while True:
 
-			self.load_supergraph()
+			try:
+				self.load_supergraph()
+			except Exception as e:
+				self.r.xadd("console_logging", "mouse supergraph error: " + e)
 
 			if self.run_mouse:
 			

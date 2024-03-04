@@ -142,7 +142,10 @@ class BtkStringClient():
 
         while True:
 
-            self.load_supergraph()
+            try:
+                self.load_supergraph()
+            except Exception as e:
+                self.r.xadd("console_logging", "keyboard supergraph error: " + e)
 
             if self.run_keyboard:
 
