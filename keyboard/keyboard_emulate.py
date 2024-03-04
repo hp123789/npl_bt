@@ -146,51 +146,51 @@ class BtkStringClient():
             # except Exception as e:
             #     self.r.xadd("console_logging", "keyboard supergraph error: " + e)
 
-            if self.run_keyboard:
+            # if self.run_keyboard:
 
-                try:
-                    sentence = self.r.xread(
-                        {self.output_stream: last_entry_seen}, block=0, count=1
+            try:
+                sentence = self.r.xread(
+                    {self.output_stream: last_entry_seen}, block=0, count=1
+                )
+                if len(sentence) > 0:
+                    last_entry_seen = sentence[0][1][0][0]
+                    output = sentence[0][1][0][1][b'final_decoded_sentence'].decode() + " "
+
+                    trial_info = self.r.xread(
+                        {self.trial_info_stream: trial_info_last_entry_seen},
+                        block=0,
+                        count=1,
                     )
-                    if len(sentence) > 0:
-                        last_entry_seen = sentence[0][1][0][0]
-                        output = sentence[0][1][0][1][b'final_decoded_sentence'].decode() + " "
 
-                        trial_info = self.r.xread(
-                            {self.trial_info_stream: trial_info_last_entry_seen},
-                            block=0,
-                            count=1,
-                        )
+                    for entry_id, entry in trial_info[0][1]:
+                        trial_info_last_entry_seen = entry_id
+                        if b'decoded_correctly' in entry:
+                            decoded_correctly = int(entry[b'decoded_correctly'].decode())
+                        else:
+                            decoded_correctly = int(-1)
 
-                        for entry_id, entry in trial_info[0][1]:
-                            trial_info_last_entry_seen = entry_id
-                            if b'decoded_correctly' in entry:
-                                decoded_correctly = int(entry[b'decoded_correctly'].decode())
-                            else:
-                                decoded_correctly = int(-1)
+                    # only type correct or mostly correct sentences
+                    if decoded_correctly in [-1,1,2]:
+                        # 0 is INCORRECT
+                        # 1 is CORRECT
+                        # 2 is MOSTLY CORRECT
+                        # -1 is NOT SPECIFIED
 
-                        # only type correct or mostly correct sentences
-                        if decoded_correctly in [-1,1,2]:
-                            # 0 is INCORRECT
-                            # 1 is CORRECT
-                            # 2 is MOSTLY CORRECT
-                            # -1 is NOT SPECIFIED
-
-                            self.send_string(output)
-                            message = {"message": "WRITING SENTENCE: " + output}
-                            self.r.xadd("console_logging", message)
-                            
-                except:
-                    isConnected = False
-                    while not isConnected:
-                        try:
-                            self.r.ping()
-                            t = self.r.time()
-                            last_entry_seen = int(t[0]*1000 + t[1]/1000)
-                            trial_info_last_entry_seen = int(t[0]*1000 + t[1]/1000)
-                            isConnected = True
-                        except:
-                            pass
+                        self.send_string(output)
+                        message = {"message": "WRITING SENTENCE: " + output}
+                        self.r.xadd("console_logging", message)
+                        
+            except:
+                isConnected = False
+                while not isConnected:
+                    try:
+                        self.r.ping()
+                        t = self.r.time()
+                        last_entry_seen = int(t[0]*1000 + t[1]/1000)
+                        trial_info_last_entry_seen = int(t[0]*1000 + t[1]/1000)
+                        isConnected = True
+                    except:
+                        pass
 
 
 if __name__ == "__main__":
