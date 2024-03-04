@@ -56,9 +56,9 @@ class MouseClient():
 			node_params = node_dict["parameters"]
 
 			if node_params.get('run_mouse') is not None:
-				self.run_mouse = np.array(node_params['run_mouse'])
-				self.run_click = np.array(node_params['run_click'])
-				self.screen_height = np.array(node_params['screen_height'])
+				self.run_mouse = bool(node_params['run_mouse'])
+				self.run_click = bool(node_params['run_click'])
+				self.screen_height = int(node_params['screen_height'])
 	
 	def run(self):
 		directions = {"left": "←",
@@ -100,7 +100,7 @@ class MouseClient():
 				read_result = self.r.xread(
 						{
 							# replace "$" with self.last_input_entry_seen, but gets bogged down
-							self.input_stream: "$",
+							self.input_stream: self.last_input_entry_seen,
 							self.discrete_input_stream: last_discrete_input_entry_seen,
 						}, count=1, block=0
 					)
@@ -162,7 +162,7 @@ class MouseClient():
 								self.state[0] = 0
 								self.send_current()
 				
-				time.sleep(0.01)
+				# time.sleep(0.01)
 
 
 if __name__ == "__main__":

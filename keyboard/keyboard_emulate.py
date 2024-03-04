@@ -133,7 +133,7 @@ class BtkStringClient():
             node_params = node_dict["parameters"]
 
             if node_params.get('run_keyboard') is not None:
-                self.run_keyboard = np.array(node_params['run_keyboard'])
+                self.run_keyboard = bool(node_params['run_keyboard'])
     
     def run(self):
         last_entry_seen = "$"
