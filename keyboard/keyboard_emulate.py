@@ -12,9 +12,6 @@ class BtkStringClient():
     # constants
     KEY_DOWN_TIME = 0.01
     KEY_DELAY = 0.01
-    output_stream = "tts_final_decoded_sentence"
-    trial_info_stream = 'trial_info'
-    r = redis.Redis('192.168.150.2', socket_timeout=5)
 
     def __init__(self):
         # the structure for a bt keyboard input report (size is 10 bytes)
@@ -65,6 +62,10 @@ class BtkStringClient():
         self.btkservice = self.bus.get_object(
             'org.npl.btkbservice', '/org/npl/btkbservice')
         self.iface = dbus.Interface(self.btkservice, 'org.npl.btkbservice')
+        self.output_stream = "tts_final_decoded_sentence"
+        self.trial_info_stream = 'trial_info'
+        self.r = redis.Redis('192.168.150.2', socket_timeout=5)
+        self.run_keyboard = True
 
     def send_key_state(self):
         """sends a single frame of the current key state to the emulator server"""
@@ -137,8 +138,6 @@ class BtkStringClient():
     def run(self):
         last_entry_seen = "$"
         trial_info_last_entry_seen = "$"
-
-        self.run_keyboard = True
 
         while True:
 

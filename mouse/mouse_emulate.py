@@ -19,6 +19,10 @@ class MouseClient():
 		self.btkservice = self.bus.get_object(
 			'org.npl.btkbservice', '/org/npl/btkbservice')
 		self.iface = dbus.Interface(self.btkservice, 'org.npl.btkbservice')
+		self.r = redis.Redis('192.168.150.2')
+		self.run_mouse = True
+		self.run_click = True
+		self.screen_height = 1964
 	def send_current(self):
 		try:
 			self.iface.send_mouse(0, bytes(self.state))
@@ -61,11 +65,6 @@ class MouseClient():
 		self.input_stream = "cursor_2d_commands"
 		self.discrete_input_stream = "decoded_gestures"
 		self.last_input_entry_seen = "$"
-		self.r = redis.Redis('192.168.150.2')
-
-		self.run_mouse = True
-		self.run_click = True
-		self.screen_height = 1964
 
 		last_input_entries = self.r.xrevrange(self.input_stream, count=1)
 		self.last_input_entry_seen = (
