@@ -89,6 +89,8 @@ class MouseClient():
 				self.state[1] = int(x_final)
 				self.state[2] = int(y_final)
 
+				self.send_current()
+
 			for (
 				discrete_input_entry_id,
 				discrete_input_entry_dict,
@@ -102,10 +104,10 @@ class MouseClient():
 				# Ignore it if it is the null action.
 				if output_class != "no_action":
 					self.state[0] = 1
-				
-			self.send_current()
-			
-			self.state[0] = 0
+					self.state[1] = 0
+					self.state[2] = 0
+					self.send_current()
+					self.state[0] = 0
 
 			time.sleep(0.01)
 
