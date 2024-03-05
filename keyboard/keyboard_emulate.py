@@ -4,6 +4,7 @@ import dbus.mainloop.glib
 import keymap
 import time
 import redis
+import redis.exceptions
 import json
 import numpy as np
 
@@ -65,7 +66,7 @@ class BtkStringClient():
         self.output_stream = "tts_final_decoded_sentence"
         self.trial_info_stream = 'trial_info'
         self.r = redis.Redis('192.168.150.2', socket_timeout=5)
-        self.bluetooth_keyboard_on = True
+        self.bluetooth_keyboard_off = True
         self.old_supergraph_id = None
 
     def send_key_state(self):
@@ -110,6 +111,9 @@ class BtkStringClient():
     def load_supergraph(self):
         supergraph_entries = self.r.xrevrange("supergraph_stream", count=1)
 
+        if len(supergraph_entries) == 0:
+            return False
+
         # Parse the result from redis.
         supergraph_id, supergraph_entry = supergraph_entries[0]
         supergraph_bytes = supergraph_entry[b"data"]
@@ -123,7 +127,7 @@ class BtkStringClient():
             matching_node_dicts = [
                 n
                 for n in supergraph_dict["nodes"].values()
-                if n["nickname"] == "brainToText_personalUse"
+                if n["nickname"] == "cursor_2d_task"
             ]
             if not matching_node_dicts:
                 message = {"message": f"Bluetooth: No parameters entry in supergraph for node '{self.nickname}'"}
@@ -132,8 +136,7 @@ class BtkStringClient():
 
             node_params = node_dict["parameters"]
 
-            if node_params.get('bluetooth_keyboard_on') is not None:
-                self.bluetooth_keyboard_on = bool(node_params['bluetooth_keyboard_on'])
+            self.bluetooth_keyboard_off = bool(node_params.get('bluetooth_keyboard_off', False))
                 
     
     def run(self):
@@ -175,12 +178,12 @@ class BtkStringClient():
                     except:
                         pass
 
-                    if self.bluetooth_keyboard_on:
+                    if not self.bluetooth_keyboard_off:
                         self.send_string(output)
                         message = {"message": "WRITING SENTENCE: " + output}
                         self.r.xadd("console_logging", message)
                         
-            except:
+            except redis.exceptions.TimeoutError:
                 isConnected = False
                 while not isConnected:
                     try:

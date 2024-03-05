@@ -20,9 +20,9 @@ class MouseClient():
 			'org.npl.btkbservice', '/org/npl/btkbservice')
 		self.iface = dbus.Interface(self.btkservice, 'org.npl.btkbservice')
 		self.r = redis.Redis('192.168.150.2')
-		self.bluetooth_cursor_on = True
-		self.bluetooth_click_on = True
-		self.bluetooth_screen_height = 1964
+		self.bluetooth_cursor_off = False
+		self.bluetooth_click_off = False
+		self.bluetooth_px_per_bgunit = 1964
 		self.old_supergraph_id = None
 	def send_current(self):
 		try:
@@ -58,10 +58,9 @@ class MouseClient():
 
 			node_params = node_dict["parameters"]
 
-			if node_params.get('bluetooth_cursor_on') is not None:
-				self.bluetooth_cursor_on = bool(node_params['bluetooth_cursor_on'])
-				self.bluetooth_click_on = bool(node_params['bluetooth_click_on'])
-				self.bluetooth_screen_height = int(node_params['bluetooth_screen_height'])
+			self.bluetooth_cursor_off = bool(node_params.get('bluetooth_cursor_off', False))
+			self.bluetooth_click_off = bool(node_params.get('bluetooth_click_off', False))
+			self.bluetooth_px_per_bgunit = int(node_params.get('bluetooth_px_per_bgunit', 1964))
 		
 		return True
 	
@@ -86,89 +85,102 @@ class MouseClient():
 		)
 	
 		while True:
-
-			read_result = self.r.xread(
-					{
-						# replace "$" with self.last_input_entry_seen, but gets bogged down
-						self.input_stream: self.last_input_entry_seen,
-						self.discrete_input_stream: self.last_discrete_input_entry_seen,
-					}, count=1, block=0
-				)
 			
-			click_final = False
-			x_final = 0
-			y_final = 0
+			try:
+				read_result = self.r.xread(
+						{
+							# replace "$" with self.last_input_entry_seen, but gets bogged down
+							self.input_stream: self.last_input_entry_seen,
+							self.discrete_input_stream: self.last_discrete_input_entry_seen,
+						}, count=1, block=0
+					)
+				
+				click_final = False
+				x_final = 0
+				y_final = 0
 
-			read_result_dict = {
-				stream.decode(): entries for stream, entries in read_result
-			}
+				read_result_dict = {
+					stream.decode(): entries for stream, entries in read_result
+				}
 
-			for input_entry_id, input_entry_dict in read_result_dict.get(
-				self.input_stream, []
-			):
-				# Save that we've now seen this entry.
-				self.last_input_entry_seen = input_entry_id
+				for input_entry_id, input_entry_dict in read_result_dict.get(
+					self.input_stream, []
+				):
+					# Save that we've now seen this entry.
+					self.last_input_entry_seen = input_entry_id
 
-				# Input command received.
-				distance_bgcoordinates = np.frombuffer(
-					input_entry_dict[b"data"], dtype=np.float32
-				)
-				x_bgcoordinates = distance_bgcoordinates[0]
-				y_bgcoordinates = distance_bgcoordinates[1]
+					# Input command received.
+					distance_bgcoordinates = np.frombuffer(
+						input_entry_dict[b"data"], dtype=np.float32
+					)
+					x_bgcoordinates = distance_bgcoordinates[0]
+					y_bgcoordinates = distance_bgcoordinates[1]
 
-				x = int(x_bgcoordinates * self.bluetooth_screen_height)
-				y = int(y_bgcoordinates * self.bluetooth_screen_height)
+					x = int(x_bgcoordinates * self.bluetooth_px_per_bgunit)
+					y = int(y_bgcoordinates * self.bluetooth_px_per_bgunit)
 
-				if (x < 0):
-					x = 256 + x
+					if (x < 0):
+						x = 256 + x
 
-				if (y > 0):
-					y = 256 - y
+					if (y > 0):
+						y = 256 - y
 
-				if (y < 0):
-					y = -1*y
+					if (y < 0):
+						y = -1*y
 
-				x_final += x
-				y_final += y
+					x_final += x
+					y_final += y
 
-				#print(x_final,y_final)
+					#print(x_final,y_final)
 
-			for (
-				discrete_input_entry_id,
-				discrete_input_entry_dict,
-			) in read_result_dict.get(self.discrete_input_stream, []):
-				# Save that we've now seen this entry.
-				self.last_discrete_input_entry_seen = discrete_input_entry_id
+				for (
+					discrete_input_entry_id,
+					discrete_input_entry_dict,
+				) in read_result_dict.get(self.discrete_input_stream, []):
+					# Save that we've now seen this entry.
+					self.last_discrete_input_entry_seen = discrete_input_entry_id
 
-				# Discrete action command received.
-				output_class = discrete_input_entry_dict[b"output_class"].decode()
+					# Discrete action command received.
+					output_class = discrete_input_entry_dict[b"output_class"].decode()
 
-				# Ignore it if it is the null action.
-				if output_class != "no_action":
-					click_final = True
+					# Ignore it if it is the null action.
+					if output_class != "no_action":
+						click_final = True
 
-			is_supergraph = self.load_supergraph()
-			if not is_supergraph:
-				# No supergraph yet. Wait briefly.
-				time.sleep(1.0)
-				continue
+				is_supergraph = self.load_supergraph()
+				if not is_supergraph:
+					# No supergraph yet. Wait briefly.
+					time.sleep(1.0)
+					continue
 
-			if self.bluetooth_click_on:
-				if click_final:
-					self.state[0] = 1
-					self.state[1] = 0
-					self.state[2] = 0
+				if not self.bluetooth_click_off:
+					if click_final:
+						self.state[0] = 1
+						self.state[1] = 0
+						self.state[2] = 0
+						self.send_current()
+						self.state[0] = 0
+						self.send_current()
+
+				if not self.bluetooth_cursor_off:
+					self.state[1] = int(x_final)
+					self.state[2] = int(y_final)
+
 					self.send_current()
-					self.state[0] = 0
-					self.send_current()
-
-			if self.bluetooth_cursor_on:
-				self.state[1] = int(x_final)
-				self.state[2] = int(y_final)
-
-				self.send_current()
-			
-			# time.sleep(0.01)
+				
+				# time.sleep(0.01)
+					
+			except redis.exceptions.TimeoutError:
+				isConnected = False
+				while not isConnected:
+					try:
+						self.r.ping()
+						t = self.r.time()
+						self.last_input_entry_seen = int(t[0]*1000 + t[1]/1000)
+						self.last_discrete_input_entry_seen = int(t[0]*1000 + t[1]/1000)
+						isConnected = True
+					except:
+						pass
 
 
 if __name__ == "__main__":
