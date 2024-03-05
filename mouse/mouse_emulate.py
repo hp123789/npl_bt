@@ -59,6 +59,8 @@ class MouseClient():
 				self.run_mouse = bool(node_params['run_mouse'])
 				self.run_click = bool(node_params['run_click'])
 				self.screen_height = int(node_params['screen_height'])
+				self.last_input_entry_seen = "$"
+				self.last_discrete_input_entry_seen = "$"
 	
 	def run(self):
 		directions = {"left": "←",
@@ -82,7 +84,7 @@ class MouseClient():
 		last_discrete_input_entries = self.r.xrevrange(
 			self.discrete_input_stream, count=1
 		)
-		last_discrete_input_entry_seen = (
+		self.last_discrete_input_entry_seen = (
 			last_discrete_input_entries[0][0]
 			if len(last_discrete_input_entries) > 0
 			else "0-0"
@@ -101,7 +103,7 @@ class MouseClient():
 						{
 							# replace "$" with self.last_input_entry_seen, but gets bogged down
 							self.input_stream: self.last_input_entry_seen,
-							self.discrete_input_stream: last_discrete_input_entry_seen,
+							self.discrete_input_stream: self.last_discrete_input_entry_seen,
 						}, count=1, block=0
 					)
 				
@@ -149,7 +151,7 @@ class MouseClient():
 						discrete_input_entry_dict,
 					) in read_result_dict.get(self.discrete_input_stream, []):
 						# Save that we've now seen this entry.
-						last_discrete_input_entry_seen = discrete_input_entry_id
+						self.last_discrete_input_entry_seen = discrete_input_entry_id
 
 						# Discrete action command received.
 						output_class = discrete_input_entry_dict[b"output_class"].decode()
