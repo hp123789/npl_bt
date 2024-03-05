@@ -65,7 +65,7 @@ class BtkStringClient():
         self.output_stream = "tts_final_decoded_sentence"
         self.trial_info_stream = 'trial_info'
         self.r = redis.Redis('192.168.150.2', socket_timeout=5)
-        self.run_keyboard = True
+        self.bluetooth_keyboard_on = True
         self.old_supergraph_id = None
 
     def send_key_state(self):
@@ -132,9 +132,8 @@ class BtkStringClient():
 
             node_params = node_dict["parameters"]
 
-            if node_params.get('run_keyboard') is not None:
-                self.run_keyboard = bool(node_params['run_keyboard'])
-                self.last_entry_seen = "$"
+            if node_params.get('bluetooth_keyboard_on') is not None:
+                self.bluetooth_keyboard_on = bool(node_params['bluetooth_keyboard_on'])
                 
     
     def run(self):
@@ -144,55 +143,51 @@ class BtkStringClient():
         while True:
 
             try:
-                self.load_supergraph()
-            except Exception as e:
-                self.r.xadd("console_logging", "keyboard supergraph error: " + e)
+                sentence = self.r.xread(
+                    {self.output_stream: self.last_entry_seen}, block=0, count=1
+                )
+                if len(sentence) > 0:
+                    self.last_entry_seen = sentence[0][1][0][0]
+                    output = sentence[0][1][0][1][b'final_decoded_sentence'].decode() + " "
 
-            if self.run_keyboard:
+                    # trial_info = self.r.xread(
+                    #     {self.trial_info_stream: self.trial_info_last_entry_seen},
+                    #     block=0,
+                    #     count=1,
+                    # )
 
-                try:
-                    sentence = self.r.xread(
-                        {self.output_stream: self.last_entry_seen}, block=0, count=1
-                    )
-                    if len(sentence) > 0:
-                        self.last_entry_seen = sentence[0][1][0][0]
-                        output = sentence[0][1][0][1][b'final_decoded_sentence'].decode() + " "
+                    # for entry_id, entry in trial_info[0][1]:
+                    #     self.trial_info_last_entry_seen = entry_id
+                    #     if b'decoded_correctly' in entry:
+                    #         decoded_correctly = int(entry[b'decoded_correctly'].decode())
+                    #     else:
+                    #         decoded_correctly = int(-1)
 
-                        # trial_info = self.r.xread(
-                        #     {self.trial_info_stream: self.trial_info_last_entry_seen},
-                        #     block=0,
-                        #     count=1,
-                        # )
+                    # # only type correct or mostly correct sentences
+                    # if decoded_correctly in [-1,1,2]:
+                    #     # 0 is INCORRECT
+                    #     # 1 is CORRECT
+                    #     # 2 is MOSTLY CORRECT
+                    #     # -1 is NOT SPECIFIED
 
-                        # for entry_id, entry in trial_info[0][1]:
-                        #     self.trial_info_last_entry_seen = entry_id
-                        #     if b'decoded_correctly' in entry:
-                        #         decoded_correctly = int(entry[b'decoded_correctly'].decode())
-                        #     else:
-                        #         decoded_correctly = int(-1)
+                    self.load_supergraph()
 
-                        # # only type correct or mostly correct sentences
-                        # if decoded_correctly in [-1,1,2]:
-                        #     # 0 is INCORRECT
-                        #     # 1 is CORRECT
-                        #     # 2 is MOSTLY CORRECT
-                        #     # -1 is NOT SPECIFIED
-
+                    if self.bluetooth_keyboard_on:
                         self.send_string(output)
                         message = {"message": "WRITING SENTENCE: " + output}
                         self.r.xadd("console_logging", message)
-                            
-                except:
-                    isConnected = False
-                    while not isConnected:
-                        try:
-                            self.r.ping()
-                            t = self.r.time()
-                            self.last_entry_seen = int(t[0]*1000 + t[1]/1000)
-                            self.trial_info_last_entry_seen = int(t[0]*1000 + t[1]/1000)
-                            isConnected = True
-                        except:
-                            pass
+                        
+            except:
+                isConnected = False
+                while not isConnected:
+                    try:
+                        self.r.ping()
+                        t = self.r.time()
+                        self.last_entry_seen = int(t[0]*1000 + t[1]/1000)
+                        self.trial_info_last_entry_seen = int(t[0]*1000 + t[1]/1000)
+                        isConnected = True
+                    except:
+                        pass
 
 
 if __name__ == "__main__":
