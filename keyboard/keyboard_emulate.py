@@ -137,7 +137,20 @@ class BtkStringClient():
             node_params = node_dict["parameters"]
 
             self.bluetooth_keyboard_off = bool(node_params.get('bluetooth_keyboard_off', False))
-                
+
+        return True
+        
+    def reconnect_redis(self):
+        isConnected = False
+        while not isConnected:
+            try:
+                self.r.ping()
+                t = self.r.time()
+                self.last_entry_seen = int(t[0]*1000 + t[1]/1000)
+                self.trial_info_last_entry_seen = int(t[0]*1000 + t[1]/1000)
+                isConnected = True
+            except:
+                pass
     
     def run(self):
         self.last_entry_seen = "$"
@@ -184,16 +197,7 @@ class BtkStringClient():
                         self.r.xadd("console_logging", message)
                         
             except redis.exceptions.TimeoutError:
-                isConnected = False
-                while not isConnected:
-                    try:
-                        self.r.ping()
-                        t = self.r.time()
-                        self.last_entry_seen = int(t[0]*1000 + t[1]/1000)
-                        self.trial_info_last_entry_seen = int(t[0]*1000 + t[1]/1000)
-                        isConnected = True
-                    except:
-                        pass
+                self.reconnect_redis()
 
 
 if __name__ == "__main__":

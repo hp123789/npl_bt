@@ -19,7 +19,7 @@ class MouseClient():
 		self.btkservice = self.bus.get_object(
 			'org.npl.btkbservice', '/org/npl/btkbservice')
 		self.iface = dbus.Interface(self.btkservice, 'org.npl.btkbservice')
-		self.r = redis.Redis('192.168.150.2')
+		self.r = redis.Redis('192.168.150.2', socket_timeout=5)
 		self.bluetooth_cursor_off = False
 		self.bluetooth_click_off = False
 		self.bluetooth_px_per_bgunit = 1964
@@ -64,7 +64,21 @@ class MouseClient():
 		
 		return True
 	
+	def reconnect_redis(self):
+		isConnected = False
+		while not isConnected:
+			try:
+				self.r.ping()
+				t = self.r.time()
+				self.last_input_entry_seen = int(t[0]*1000 + t[1]/1000)
+				self.last_discrete_input_entry_seen = int(t[0]*1000 + t[1]/1000)
+				isConnected = True
+			except:
+				pass
+	
 	def run(self):
+
+		self.reconnect_redis()
 		
 		self.input_stream = "cursor_2d_commands"
 		self.discrete_input_stream = "decoded_gestures"
@@ -92,7 +106,7 @@ class MouseClient():
 							# replace "$" with self.last_input_entry_seen, but gets bogged down
 							self.input_stream: self.last_input_entry_seen,
 							self.discrete_input_stream: self.last_discrete_input_entry_seen,
-						}, count=1, block=0
+						}, block=1000
 					)
 				
 				click_final = False
@@ -147,11 +161,7 @@ class MouseClient():
 					if output_class != "no_action":
 						click_final = True
 
-				is_supergraph = self.load_supergraph()
-				if not is_supergraph:
-					# No supergraph yet. Wait briefly.
-					time.sleep(1.0)
-					continue
+				self.load_supergraph()
 
 				if not self.bluetooth_click_off:
 					if click_final:
@@ -171,16 +181,7 @@ class MouseClient():
 				# time.sleep(0.01)
 					
 			except redis.exceptions.TimeoutError:
-				isConnected = False
-				while not isConnected:
-					try:
-						self.r.ping()
-						t = self.r.time()
-						self.last_input_entry_seen = int(t[0]*1000 + t[1]/1000)
-						self.last_discrete_input_entry_seen = int(t[0]*1000 + t[1]/1000)
-						isConnected = True
-					except:
-						pass
+				self.reconnect_redis()
 
 
 if __name__ == "__main__":
