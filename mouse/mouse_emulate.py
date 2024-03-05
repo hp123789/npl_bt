@@ -23,6 +23,7 @@ class MouseClient():
 		self.run_mouse = True
 		self.run_click = True
 		self.screen_height = 1964
+		self.old_supergraph_id = None
 	def send_current(self):
 		try:
 			self.iface.send_mouse(0, bytes(self.state))
@@ -39,9 +40,8 @@ class MouseClient():
 		supergraph_dict = json.loads(supergraph_str)
 
 		# If this is a new supergraph, update this class's version.
-		if supergraph_id != self.supergraph_id:
-			self.supergraph_id = supergraph_id
-			self.supergraph_dict = supergraph_dict
+		if supergraph_id != self.old_supergraph_id:
+			self.old_supergraph_id = supergraph_id
 			# Also grab the parameters for this specific node.
 			matching_node_dicts = [
 				n

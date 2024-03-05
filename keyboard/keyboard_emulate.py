@@ -66,6 +66,7 @@ class BtkStringClient():
         self.trial_info_stream = 'trial_info'
         self.r = redis.Redis('192.168.150.2', socket_timeout=5)
         self.run_keyboard = True
+        self.old_supergraph_id = None
 
     def send_key_state(self):
         """sends a single frame of the current key state to the emulator server"""
@@ -116,9 +117,8 @@ class BtkStringClient():
         supergraph_dict = json.loads(supergraph_str)
 
         # If this is a new supergraph, update this class's version.
-        if supergraph_id != self.supergraph_id:
-            self.supergraph_id = supergraph_id
-            self.supergraph_dict = supergraph_dict
+        if supergraph_id != self.old_supergraph_id:
+            self.old_supergraph_id = supergraph_id
             # Also grab the parameters for this specific node.
             matching_node_dicts = [
                 n
