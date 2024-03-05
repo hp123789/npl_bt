@@ -4,6 +4,7 @@ import dbus.mainloop.glib
 import keymap
 import time
 import redis
+import redis.exceptions
 import json
 import numpy as np
 
@@ -136,7 +137,20 @@ class BtkStringClient():
             node_params = node_dict["parameters"]
 
             self.bluetooth_keyboard_off = bool(node_params.get('bluetooth_keyboard_off', False))
-                
+
+        return True
+        
+    def reconnect_redis(self):
+        isConnected = False
+        while not isConnected:
+            try:
+                self.r.ping()
+                t = self.r.time()
+                self.last_entry_seen = int(t[0]*1000 + t[1]/1000)
+                self.trial_info_last_entry_seen = int(t[0]*1000 + t[1]/1000)
+                isConnected = True
+            except:
+                pass
     
     def run(self):
         self.last_entry_seen = "$"
@@ -172,29 +186,21 @@ class BtkStringClient():
                     #     # 2 is MOSTLY CORRECT
                     #     # -1 is NOT SPECIFIED
 
-                    try:
-                        self.load_supergraph()
-                    except:
-                        pass
+                    self.load_supergraph()
 
                     if not self.bluetooth_keyboard_off:
                         self.send_string(output)
                         message = {"message": "WRITING SENTENCE: " + output}
                         self.r.xadd("console_logging", message)
                         
-            except:
-                isConnected = False
-                while not isConnected:
-                    try:
-                        self.r.ping()
-                        t = self.r.time()
-                        self.last_entry_seen = int(t[0]*1000 + t[1]/1000)
-                        self.trial_info_last_entry_seen = int(t[0]*1000 + t[1]/1000)
-                        isConnected = True
-                    except:
-                        pass
+            except redis.exceptions.TimeoutError:
+                self.reconnect_redis()
 
 
 if __name__ == "__main__":
     node = BtkStringClient()
-    node.run()
+    try:
+        node.run()
+    except Exception as e:
+        message = {"message": str(e)}
+        node.r.xadd("console_logging", message)
