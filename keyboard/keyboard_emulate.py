@@ -186,10 +186,7 @@ class BtkStringClient():
                     #     # 2 is MOSTLY CORRECT
                     #     # -1 is NOT SPECIFIED
 
-                    try:
-                        self.load_supergraph()
-                    except:
-                        pass
+                    self.load_supergraph()
 
                     if not self.bluetooth_keyboard_off:
                         self.send_string(output)
@@ -202,4 +199,8 @@ class BtkStringClient():
 
 if __name__ == "__main__":
     node = BtkStringClient()
-    node.run()
+    try:
+        node.run()
+    except Exception as e:
+        message = {"message": str(e)}
+        node.r.xadd("console_logging", message)
