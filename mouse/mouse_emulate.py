@@ -140,7 +140,7 @@ class MouseClient():
 				self.load_supergraph()
 
 				# Ignore it if it is the null action.
-				if output_class != "no_action" and self.bluetooth_click_on:
+				if output_class != "no_action" and self.bluetooth_click_on and self.r.get("task_state_current") not in [1,3,5]:
 					self.state[0] = 1
 					self.state[1] = 0
 					self.state[2] = 0
@@ -150,7 +150,7 @@ class MouseClient():
 
 			self.load_supergraph()
 
-			if self.bluetooth_cursor_on:
+			if self.bluetooth_cursor_on and self.r.get("task_state_current") not in [1,3,5]:
 				self.state[1] = int(x_final)
 				self.state[2] = int(y_final)
 
