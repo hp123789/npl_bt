@@ -90,10 +90,10 @@ class MouseClient():
 	
 		while True:
 
-			# try:
-			# 	self.load_supergraph()
-			# except Exception as e:
-			# 	self.r.xadd("console_logging", "mouse supergraph error: " + e)
+			try:
+				self.load_supergraph()
+			except Exception as e:
+				self.r.xadd("console_logging", "mouse supergraph error: " + e)
 
 			if self.run_mouse:
 			
@@ -104,6 +104,9 @@ class MouseClient():
 							self.discrete_input_stream: last_discrete_input_entry_seen,
 						}, count=1, block=0
 					)
+				
+				x_final = 0
+				y_final = 0
 
 				read_result_dict = {
 					stream.decode(): entries for stream, entries in read_result
@@ -122,45 +125,48 @@ class MouseClient():
 					x_bgcoordinates = distance_bgcoordinates[0]
 					y_bgcoordinates = distance_bgcoordinates[1]
 
-					x_final = int(x_bgcoordinates * self.screen_height)
-					y_final = int(y_bgcoordinates * self.screen_height)
+					x = int(x_bgcoordinates * self.screen_height)
+					y = int(y_bgcoordinates * self.screen_height)
 
-					if (x_final < 0):
-						x_final = 256 + x_final
+					if (x < 0):
+						x = 256 + x
 
-					if (y_final > 0):
-						y_final = 256 - y_final
+					if (y > 0):
+						y = 256 - y
 
-					if (y_final < 0):
-						y_final = -1*y_final
+					if (y < 0):
+						y = -1*y
+
+					x_final += x
+					y_final += y
 
 					#print(x_final,y_final)
 
-					self.state[1] = int(x_final)
-					self.state[2] = int(y_final)
+				if self.run_click:
 
-					self.send_current()
+					for (
+						discrete_input_entry_id,
+						discrete_input_entry_dict,
+					) in read_result_dict.get(self.discrete_input_stream, []):
+						# Save that we've now seen this entry.
+						last_discrete_input_entry_seen = discrete_input_entry_id
 
-					if self.run_click:
+						# Discrete action command received.
+						output_class = discrete_input_entry_dict[b"output_class"].decode()
 
-						for (
-							discrete_input_entry_id,
-							discrete_input_entry_dict,
-						) in read_result_dict.get(self.discrete_input_stream, []):
-							# Save that we've now seen this entry.
-							last_discrete_input_entry_seen = discrete_input_entry_id
+						# Ignore it if it is the null action.
+						if output_class != "no_action":
+							self.state[0] = 1
+							self.state[1] = 0
+							self.state[2] = 0
+							self.send_current()
+							self.state[0] = 0
+							self.send_current()
 
-							# Discrete action command received.
-							output_class = discrete_input_entry_dict[b"output_class"].decode()
+				self.state[1] = int(x_final)
+				self.state[2] = int(y_final)
 
-							# Ignore it if it is the null action.
-							if output_class != "no_action":
-								self.state[0] = 1
-								self.state[1] = 0
-								self.state[2] = 0
-								self.send_current()
-								self.state[0] = 0
-								self.send_current()
+				self.send_current()
 				
 				# time.sleep(0.01)
 
