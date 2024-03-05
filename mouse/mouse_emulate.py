@@ -33,6 +33,9 @@ class MouseClient():
 	def load_supergraph(self):
 		supergraph_entries = self.r.xrevrange("supergraph_stream", count=1)
 
+		if len(supergraph_entries) == 0:
+			return False
+
 		# Parse the result from redis.
 		supergraph_id, supergraph_entry = supergraph_entries[0]
 		supergraph_bytes = supergraph_entry[b"data"]
@@ -59,6 +62,8 @@ class MouseClient():
 				self.bluetooth_cursor_on = bool(node_params['bluetooth_cursor_on'])
 				self.bluetooth_click_on = bool(node_params['bluetooth_click_on'])
 				self.bluetooth_screen_height = int(node_params['bluetooth_screen_height'])
+		
+		return True
 	
 	def run(self):
 		
@@ -90,6 +95,7 @@ class MouseClient():
 					}, count=1, block=0
 				)
 			
+			click_final = False
 			x_final = 0
 			y_final = 0
 
@@ -137,24 +143,24 @@ class MouseClient():
 				# Discrete action command received.
 				output_class = discrete_input_entry_dict[b"output_class"].decode()
 
-				try:
-					self.load_supergraph()
-				except:
-					pass
-
 				# Ignore it if it is the null action.
-				if output_class != "no_action" and self.bluetooth_click_on:
+				if output_class != "no_action":
+					click_final = True
+
+			is_supergraph = self.load_supergraph()
+			if not is_supergraph:
+				# No supergraph yet. Wait briefly.
+				time.sleep(1.0)
+				continue
+
+			if self.bluetooth_click_on:
+				if click_final:
 					self.state[0] = 1
 					self.state[1] = 0
 					self.state[2] = 0
 					self.send_current()
 					self.state[0] = 0
 					self.send_current()
-
-			try:
-				self.load_supergraph()
-			except:
-				pass
 
 			if self.bluetooth_cursor_on:
 				self.state[1] = int(x_final)
