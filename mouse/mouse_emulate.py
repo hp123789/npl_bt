@@ -190,4 +190,4 @@ if __name__ == "__main__":
 		node.run()
 	except Exception as e:
 		message = {"message": str(e)}
-		self.r.xadd("console_logging", message)
+		node.r.xadd("console_logging", message)
