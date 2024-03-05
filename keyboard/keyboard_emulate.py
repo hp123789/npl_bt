@@ -65,7 +65,7 @@ class BtkStringClient():
         self.output_stream = "tts_final_decoded_sentence"
         self.trial_info_stream = 'trial_info'
         self.r = redis.Redis('192.168.150.2', socket_timeout=5)
-        self.bluetooth_keyboard_off = True
+        self.bluetooth_keyboard_off = False
         self.old_supergraph_id = None
 
     def send_key_state(self):
@@ -126,7 +126,7 @@ class BtkStringClient():
             matching_node_dicts = [
                 n
                 for n in supergraph_dict["nodes"].values()
-                if n["nickname"] == "cursor_2d_task"
+                if n["nickname"] == "brainToText_personalUse"
             ]
             if not matching_node_dicts:
                 message = {"message": f"Bluetooth: No parameters entry in supergraph for node '{self.nickname}'"}
