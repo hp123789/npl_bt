@@ -137,7 +137,10 @@ class MouseClient():
 				# Discrete action command received.
 				output_class = discrete_input_entry_dict[b"output_class"].decode()
 
-				self.load_supergraph()
+				try:
+					self.load_supergraph()
+				except:
+					pass
 
 				# Ignore it if it is the null action.
 				if output_class != "no_action" and self.bluetooth_click_on:
@@ -148,7 +151,10 @@ class MouseClient():
 					self.state[0] = 0
 					self.send_current()
 
-			self.load_supergraph()
+			try:
+				self.load_supergraph()
+			except:
+				pass
 
 			if self.bluetooth_cursor_on:
 				self.state[1] = int(x_final)

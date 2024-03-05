@@ -170,7 +170,10 @@ class BtkStringClient():
                     #     # 2 is MOSTLY CORRECT
                     #     # -1 is NOT SPECIFIED
 
-                    self.load_supergraph()
+                    try:
+                        self.load_supergraph()
+                    except:
+                        pass
 
                     if self.bluetooth_keyboard_on:
                         self.send_string(output)
