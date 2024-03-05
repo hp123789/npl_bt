@@ -199,8 +199,4 @@ class BtkStringClient():
 
 if __name__ == "__main__":
     node = BtkStringClient()
-    try:
-        node.run()
-    except Exception as e:
-        message = {"message": str(e)}
-        node.r.xadd("console_logging", message)
+    node.run()

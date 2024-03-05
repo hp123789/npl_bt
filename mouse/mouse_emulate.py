@@ -78,7 +78,7 @@ class MouseClient():
 	
 	def run(self):
 
-		self.reconnect_redis()
+		# self.reconnect_redis()
 		
 		self.input_stream = "cursor_2d_commands"
 		self.discrete_input_stream = "decoded_gestures"
@@ -186,4 +186,8 @@ class MouseClient():
 
 if __name__ == "__main__":
 	node = MouseClient()
-	node.run()
+	try:
+		node.run()
+	except Exception as e:
+		message = {"message": str(e)}
+		self.r.xadd("console_logging", message)
