@@ -18,6 +18,6 @@ tmux kill-window -t npl:app >/dev/null 2>&1
 }
 [ ! -z "$(tmux has-session -t npl:app.1 2>&1)" ] && tmux split-window -t npl:app -h
 [ ! -z "$(tmux has-session -t npl:app.2 2>&1)" ] && tmux split-window -t npl:app.1 -v
-tmux send-keys -t npl:app.0 'cd $C_PATH/server && sudo ./btk_server.py | tee ./server.txt' C-m
-tmux send-keys -t npl:app.2 'cd $C_PATH/keyboard  && python3 ./keyboard_emulate.py | tee ./keyboard.txt' C-m
-tmux send-keys -t npl:app.1 'cd $C_PATH/mouse  && python3 ./mouse_emulate.py | tee ./mouse.txt' C-m
+tmux send-keys -t npl:app.0 'cd $C_PATH/server && sudo ./btk_server.py >> ./server.txt' C-m
+tmux send-keys -t npl:app.2 'cd $C_PATH/keyboard  && python3 ./keyboard_emulate.py >> ./keyboard.txt' C-m
+tmux send-keys -t npl:app.1 'cd $C_PATH/mouse  && python3 ./mouse_emulate.py >> ./mouse.txt' C-m
