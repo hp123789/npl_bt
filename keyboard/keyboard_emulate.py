@@ -153,52 +153,52 @@ class BtkStringClient():
                 pass
     
     def run(self):
-        try:
-            self.last_entry_seen = "$"
-            self.trial_info_last_entry_seen = "$"
 
-            while True:
+        self.reconnect_redis()
 
-                try:
-                    sentence = self.r.xread(
-                        {self.output_stream: self.last_entry_seen}, block=0, count=1
-                    )
-                    if len(sentence) > 0:
-                        self.last_entry_seen = sentence[0][1][0][0]
-                        output = sentence[0][1][0][1][b'final_decoded_sentence'].decode() + " "
+        self.last_entry_seen = "$"
+        self.trial_info_last_entry_seen = "$"
 
-                        # trial_info = self.r.xread(
-                        #     {self.trial_info_stream: self.trial_info_last_entry_seen},
-                        #     block=0,
-                        #     count=1,
-                        # )
+        while True:
 
-                        # for entry_id, entry in trial_info[0][1]:
-                        #     self.trial_info_last_entry_seen = entry_id
-                        #     if b'decoded_correctly' in entry:
-                        #         decoded_correctly = int(entry[b'decoded_correctly'].decode())
-                        #     else:
-                        #         decoded_correctly = int(-1)
+            try:
+                sentence = self.r.xread(
+                    {self.output_stream: self.last_entry_seen}, block=0, count=1
+                )
+                if len(sentence) > 0:
+                    self.last_entry_seen = sentence[0][1][0][0]
+                    output = sentence[0][1][0][1][b'final_decoded_sentence'].decode() + " "
 
-                        # # only type correct or mostly correct sentences
-                        # if decoded_correctly in [-1,1,2]:
-                        #     # 0 is INCORRECT
-                        #     # 1 is CORRECT
-                        #     # 2 is MOSTLY CORRECT
-                        #     # -1 is NOT SPECIFIED
+                    # trial_info = self.r.xread(
+                    #     {self.trial_info_stream: self.trial_info_last_entry_seen},
+                    #     block=0,
+                    #     count=1,
+                    # )
 
-                        self.load_supergraph()
+                    # for entry_id, entry in trial_info[0][1]:
+                    #     self.trial_info_last_entry_seen = entry_id
+                    #     if b'decoded_correctly' in entry:
+                    #         decoded_correctly = int(entry[b'decoded_correctly'].decode())
+                    #     else:
+                    #         decoded_correctly = int(-1)
 
-                        if not self.bluetooth_keyboard_off:
-                            self.send_string(output)
-                            message = {"message": "WRITING SENTENCE: " + output}
-                            self.r.xadd("console_logging", message)
-                            
-                except redis.exceptions.TimeoutError:
-                    self.reconnect_redis()
-        except Exception as e:
-            message = {"message": str(e)}
-            self.r.xadd("console_logging", message)
+                    # # only type correct or mostly correct sentences
+                    # if decoded_correctly in [-1,1,2]:
+                    #     # 0 is INCORRECT
+                    #     # 1 is CORRECT
+                    #     # 2 is MOSTLY CORRECT
+                    #     # -1 is NOT SPECIFIED
+
+                    self.load_supergraph()
+
+                    if not self.bluetooth_keyboard_off:
+                        self.send_string(output)
+                        message = {"message": "WRITING SENTENCE: " + output}
+                        self.r.xadd("console_logging", message)
+                        
+            except redis.exceptions.TimeoutError:
+                self.reconnect_redis()
+
 
 if __name__ == "__main__":
     node = BtkStringClient()
