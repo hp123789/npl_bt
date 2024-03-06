@@ -1,5 +1,4 @@
 #Stop the background process
-sleep 30
 sudo hciconfig hci0 down
 sudo systemctl daemon-reload
 sudo systemctl stop bluetooth

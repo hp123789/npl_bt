@@ -106,7 +106,7 @@ class MouseClient():
 							# replace "$" with self.last_input_entry_seen, but gets bogged down
 							self.input_stream: self.last_input_entry_seen,
 							self.discrete_input_stream: self.last_discrete_input_entry_seen,
-						}, block=1000
+						}, block=0
 					)
 				
 				click_final = False
