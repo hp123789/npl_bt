@@ -78,7 +78,7 @@ class MouseClient():
 	
 	def run(self):
 
-		# self.reconnect_redis()
+		self.reconnect_redis()
 		
 		self.input_stream = "cursor_2d_commands"
 		self.discrete_input_stream = "decoded_gestures"
@@ -163,7 +163,10 @@ class MouseClient():
 
 				self.load_supergraph()
 
-				if not self.bluetooth_click_off:
+				disable_bluetooth_click = self.bluetooth_click_off or self.r.get("task_state_current") == b'1'
+				disable_bluetooth_cursor = self.bluetooth_cursor_off or self.r.get("task_state_current") == b'1'
+
+				if not disable_bluetooth_click:
 					if click_final:
 						self.state[0] = 1
 						self.state[1] = 0
@@ -172,7 +175,7 @@ class MouseClient():
 						self.state[0] = 0
 						self.send_current()
 
-				if not self.bluetooth_cursor_off:
+				if not disable_bluetooth_cursor:
 					self.state[1] = int(x_final)
 					self.state[2] = int(y_final)
 
