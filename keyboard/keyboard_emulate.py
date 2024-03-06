@@ -130,7 +130,7 @@ class BtkStringClient():
                 if n["nickname"] == "brainToText_personalUse"
             ]
             if not matching_node_dicts:
-                message = {"message": f"Bluetooth: No parameters entry in supergraph for node '{self.nickname}'"}
+                message = {"message": f"Bluetooth: No parameters entry in supergraph for node brainToText_personalUse"}
                 self.r.xadd("console_logging", message)
             node_dict = matching_node_dicts[0]
 
