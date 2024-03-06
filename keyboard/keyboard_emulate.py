@@ -153,49 +153,52 @@ class BtkStringClient():
                 pass
     
     def run(self):
-        self.last_entry_seen = "$"
-        self.trial_info_last_entry_seen = "$"
+        try:
+            self.last_entry_seen = "$"
+            self.trial_info_last_entry_seen = "$"
 
-        while True:
+            while True:
 
-            try:
-                sentence = self.r.xread(
-                    {self.output_stream: self.last_entry_seen}, block=0, count=1
-                )
-                if len(sentence) > 0:
-                    self.last_entry_seen = sentence[0][1][0][0]
-                    output = sentence[0][1][0][1][b'final_decoded_sentence'].decode() + " "
+                try:
+                    sentence = self.r.xread(
+                        {self.output_stream: self.last_entry_seen}, block=0, count=1
+                    )
+                    if len(sentence) > 0:
+                        self.last_entry_seen = sentence[0][1][0][0]
+                        output = sentence[0][1][0][1][b'final_decoded_sentence'].decode() + " "
 
-                    # trial_info = self.r.xread(
-                    #     {self.trial_info_stream: self.trial_info_last_entry_seen},
-                    #     block=0,
-                    #     count=1,
-                    # )
+                        # trial_info = self.r.xread(
+                        #     {self.trial_info_stream: self.trial_info_last_entry_seen},
+                        #     block=0,
+                        #     count=1,
+                        # )
 
-                    # for entry_id, entry in trial_info[0][1]:
-                    #     self.trial_info_last_entry_seen = entry_id
-                    #     if b'decoded_correctly' in entry:
-                    #         decoded_correctly = int(entry[b'decoded_correctly'].decode())
-                    #     else:
-                    #         decoded_correctly = int(-1)
+                        # for entry_id, entry in trial_info[0][1]:
+                        #     self.trial_info_last_entry_seen = entry_id
+                        #     if b'decoded_correctly' in entry:
+                        #         decoded_correctly = int(entry[b'decoded_correctly'].decode())
+                        #     else:
+                        #         decoded_correctly = int(-1)
 
-                    # # only type correct or mostly correct sentences
-                    # if decoded_correctly in [-1,1,2]:
-                    #     # 0 is INCORRECT
-                    #     # 1 is CORRECT
-                    #     # 2 is MOSTLY CORRECT
-                    #     # -1 is NOT SPECIFIED
+                        # # only type correct or mostly correct sentences
+                        # if decoded_correctly in [-1,1,2]:
+                        #     # 0 is INCORRECT
+                        #     # 1 is CORRECT
+                        #     # 2 is MOSTLY CORRECT
+                        #     # -1 is NOT SPECIFIED
 
-                    self.load_supergraph()
+                        self.load_supergraph()
 
-                    if not self.bluetooth_keyboard_off:
-                        self.send_string(output)
-                        message = {"message": "WRITING SENTENCE: " + output}
-                        self.r.xadd("console_logging", message)
-                        
-            except redis.exceptions.TimeoutError:
-                self.reconnect_redis()
-
+                        if not self.bluetooth_keyboard_off:
+                            self.send_string(output)
+                            message = {"message": "WRITING SENTENCE: " + output}
+                            self.r.xadd("console_logging", message)
+                            
+                except redis.exceptions.TimeoutError:
+                    self.reconnect_redis()
+        except Exception as e:
+            message = {"message": str(e)}
+            self.r.xadd("console_logging", message)
 
 if __name__ == "__main__":
     node = BtkStringClient()
