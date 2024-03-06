@@ -52,8 +52,7 @@ class MouseClient():
 				if n["nickname"] == "cursor_2d_task"
 			]
 			if not matching_node_dicts:
-				message = {"message": f"Bluetooth: No parameters entry in supergraph for node cursor_2d_task"}
-				self.r.xadd("console_logging", message)
+				return False
 			node_dict = matching_node_dicts[0]
 
 			node_params = node_dict["parameters"]
