@@ -167,10 +167,10 @@ class MouseClient():
 				disable_bluetooth_cursor = self.bluetooth_cursor_off or self.r.get("task_state_current") == b'1'
 
 				if x_final < 0: x_final = 0
-				if x_final > 256: x_final = 256
+				if x_final > 255: x_final = 255
 				
 				if y_final < 0: y_final = 0
-				if y_final > 256: y_final = 256
+				if y_final > 255: y_final = 255
 
 				if not disable_bluetooth_click:
 					if click_final:
