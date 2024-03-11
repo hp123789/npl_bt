@@ -133,15 +133,6 @@ class MouseClient():
 					x = int(x_bgcoordinates * self.bluetooth_px_per_bgunit)
 					y = int(y_bgcoordinates * self.bluetooth_px_per_bgunit)
 
-					if (x < 0):
-						x = 256 + x
-
-					if (y > 0):
-						y = 256 - y
-
-					if (y < 0):
-						y = -1*y
-
 					x_final += x
 					y_final += y
 
@@ -182,6 +173,15 @@ class MouseClient():
 						self.send_current()
 
 				if not disable_bluetooth_cursor:
+					if (x_final < 0):
+						x_final = 255 + x_final
+
+					if (y_final > 0):
+						y_final = 255 - y_final
+
+					if (y_final < 0):
+						y_final = -1*y_final
+					
 					self.state[1] = int(x_final)
 					self.state[2] = int(y_final)
 
