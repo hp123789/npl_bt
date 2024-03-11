@@ -104,7 +104,7 @@ class MouseClient():
 				read_result = self.r.xread(
 						{
 							# replace "$" with self.last_input_entry_seen, but gets bogged down
-							self.input_stream: self.last_input_entry_seen,
+							self.input_stream: "$",
 							self.discrete_input_stream: self.last_discrete_input_entry_seen,
 						}, block=0
 					)
