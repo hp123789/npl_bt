@@ -27,6 +27,7 @@ class MouseClient():
 	def send_current(self):
 		try:
 			self.iface.send_mouse(0, bytes(self.state))
+			self.r.xadd("bluetooth_cursor_commands", {"state": self.state})
 		except OSError as err:
 			error(err)
 
@@ -194,4 +195,8 @@ class MouseClient():
 
 if __name__ == "__main__":
 	node = MouseClient()
-	node.run()
+	try:
+		node.run()
+	except Exception as e:
+		message = {"message": "BLUETOOTH MOUSE ERROR: " + e}
+		node.r.xadd("console_logging", message)
