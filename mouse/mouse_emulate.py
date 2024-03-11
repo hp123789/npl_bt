@@ -27,7 +27,7 @@ class MouseClient():
 	def send_current(self):
 		try:
 			self.iface.send_mouse(0, bytes(self.state))
-			self.r.xadd("bluetooth_cursor_commands", {"state": str(self.state)})
+			# self.r.xadd("bluetooth_cursor_commands", {"state": str(self.state)})
 		except OSError as err:
 			error(err)
 
@@ -157,11 +157,7 @@ class MouseClient():
 				disable_bluetooth_click = self.bluetooth_click_off or self.r.get("task_state_current") == b'1'
 				disable_bluetooth_cursor = self.bluetooth_cursor_off or self.r.get("task_state_current") == b'1'
 
-				if x_final < 0: x_final = 0
-				if x_final > 255: x_final = 255
 				
-				if y_final < 0: y_final = 0
-				if y_final > 255: y_final = 255
 
 				if not disable_bluetooth_click:
 					if click_final:
@@ -182,6 +178,14 @@ class MouseClient():
 					if (y_final < 0):
 						y_final = -1*y_final
 					
+
+					if x_final < 0: x_final = 0
+					if x_final > 255: x_final = 255
+					
+					if y_final < 0: y_final = 0
+					if y_final > 255: y_final = 255
+
+
 					self.state[1] = int(x_final)
 					self.state[2] = int(y_final)
 
