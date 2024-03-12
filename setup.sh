@@ -16,11 +16,3 @@ sudo apt install python3-pip -y
 sudo pip3 install PyBluez
 sudo pip3 install redis
 sudo pip3 install numpy
-echo "interface eth0" >> /etc/dhcpcd.conf
-echo "static ip_address=192.168.150.147" >> /etc/dhcpcd.conf
-echo "static routers=192.168.50.1" >> /etc/dhcpcd.conf
-echo "static domain_name_servers=192.168.50.1" >> /etc/dhcpcd.conf
-echo "dtparam=krnbt" >> /boot/config.txt
-echo "cd /home/username/npl_bt/" >> ../.bashrc
-echo "sudo ./boot.sh" >> ../.bashrc
-sudo reboot
